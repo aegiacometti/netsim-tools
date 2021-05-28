@@ -9,7 +9,7 @@ from box import Box
 try:
   from importlib import resources
 except ImportError:
-  import importlib_resources as resources
+  import importlib_resources as resources # type: ignore
 
 # Related modules
 from . import common
