@@ -1,8 +1,8 @@
-<!--
 # Development Notes
 
-This is development branch for what might become release 0.7 or release 0.6.4 (depending on how many changes we'll accumulate in this release).
+This is development branch for what might become release 0.8 or release 0.7.1 (depending on how many changes we'll accumulate in this release).
 
+<!--
 Changes from release 0.6.3 ([more details](https://netsim-tools.readthedocs.io/en/dev_0.7/release/0.6x.html)):
 
 * Static typing in Python code and **mypy** tests
