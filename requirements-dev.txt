@@ -1,1 +1,3 @@
 mypy
+types-Jinja2
+types-PyYAML
