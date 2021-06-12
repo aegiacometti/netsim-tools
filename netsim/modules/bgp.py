@@ -87,6 +87,14 @@ class BGP(_Module):
 
     node_data = Box({},default_box=True,box_dots=True)
     for asn,data in topology.bgp.as_list.items():
+      if not isinstance(data,dict):
+        common.error(
+          "Invalid value in bgp.as_list for ASN %s: " % asn + \
+          "\n... Each ASN in a BGP as_list must be a dictionary with (at least) members key:"+
+          "\n... Found: %s" % data,
+          common.IncorrectValue)
+        continue
+
       for n in data.get('members',{}):
         if not n in topology.nodes_map:
           common.error(

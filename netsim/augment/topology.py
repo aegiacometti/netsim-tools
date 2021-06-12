@@ -34,6 +34,8 @@ def check_required_elements(topology: Box) -> None:
   topology.defaults.name = topology.name
   topo_elements = topo_main_elements + topo_internal_elements
   if topology.get('module'):
+    if isinstance(topology.module,str):
+      topology.module = [ topology.module ]
     topology.defaults.module = topology.module
     topo_elements = topo_elements + topology.module
 
