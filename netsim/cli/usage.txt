@@ -1,0 +1,9 @@
+netlab commands
+==============================
+
+create        Create virtualization provider and network automation configuration
+              file. Assuming you're using Vagrant and Ansible, it creates
+              Vagrantfile, hosts.yml and ansible.cfg
+
+config        Runs initial-config Ansible playbook to deploy initial- and module-
+              specific configurations to network devices

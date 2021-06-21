@@ -5,4 +5,4 @@
 
 import netsim.cli
 
-netsim.cli.create_topology()
+netsim.cli.lab_commands()
