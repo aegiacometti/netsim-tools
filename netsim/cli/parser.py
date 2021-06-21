@@ -1,12 +1,14 @@
 #
-# CLI parser for create-topology script
+# netsim-tools CLI parsers
+#
+# Contain parsers for create-topology script and the main netlab CLI
 #
 import argparse
 
-# Related modules
-from . import common
-
-def parse() -> argparse.Namespace:
+#
+# CLI parser for create-topology script
+#
+def create_topology_parse() -> argparse.Namespace:
   parser = argparse.ArgumentParser(description='Create topology data from topology description')
   parser.add_argument('-t','--topology', dest='topology', action='store', default='topology.yml',
                   help='Topology file')
@@ -31,6 +33,4 @@ def parse() -> argparse.Namespace:
                   help='Display data instead of creating a file')
   args = parser.parse_args()
 
-  common.VERBOSE = args.verbose
-  common.LOGGING = args.logging
   return args
