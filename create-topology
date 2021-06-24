@@ -5,6 +5,6 @@
 #
 
 import netsim
-import netsim.cli.parser
+import netsim.cli.topology
 
-netsim.cli.create_topology()
+netsim.cli.topology.run()

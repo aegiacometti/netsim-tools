@@ -1,0 +1,3 @@
+recursive-include netsim/ansible *
+recursive-include netsim/templates *
+include requirements.txt

@@ -4,6 +4,7 @@
 # Contain parsers for create-topology script and the main netlab CLI
 #
 import argparse
+from .. import main
 
 #
 # CLI parser for create-topology script
@@ -34,3 +35,8 @@ def create_topology_parse() -> argparse.Namespace:
   args = parser.parse_args()
 
   return args
+
+def run() -> None:
+  args = create_topology_parse()
+  main(args)
+

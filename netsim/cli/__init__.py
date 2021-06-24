@@ -5,14 +5,27 @@
 
 import sys
 import importlib
+import argparse
 
-from .. import main
-from . import parser
 from . import usage
 
-def create_topology() -> None:
-  args = parser.create_topology_parse()
-  main(args)
+def common_parse_args() -> argparse.ArgumentParser:
+  parser = argparse.ArgumentParser(description='Common argument parsing',add_help=False)
+  parser.add_argument('--defaults', dest='defaults', action='store', default='topology-defaults.yml',
+                  help='Local topology defaults file')
+  parser.add_argument('--log', dest='logging', action='store_true',
+                  help='Enable basic logging')
+  parser.add_argument('-q','--quiet', dest='quiet', action='store_true',
+                  help='Report only major errors')
+  parser.add_argument('-v','--view', dest='verbose', action='store_true',
+                  help='Verbose logging')
+  return parser
+
+def topology_parse_args() -> argparse.ArgumentParser:
+  parser = argparse.ArgumentParser(description='Common topology arguments',add_help=False)
+  parser.add_argument('-d','--device', dest='device', action='store', help='Default device type')
+  parser.add_argument('-p','--provider', dest='provider', action='store',help='Override virtualization provider')
+  return parser
 
 def lab_commands() -> None:
   if len(sys.argv) < 2:
@@ -20,7 +33,7 @@ def lab_commands() -> None:
 
   cmd = sys.argv[1]
   mod = importlib.import_module("."+cmd,__name__)
-  if not mod:
+  if not mod or not hasattr(mod,'run'):
     print("Invalid CLI command: %s. Use 'help' to get the list of valid commands")
     sys.exit(1)
-  mod.run(sys.argv[2:])
+  mod.run(sys.argv[2:])   # type: ignore
