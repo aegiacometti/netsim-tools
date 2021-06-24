@@ -15,7 +15,7 @@ try:
 except ImportError:
   import importlib_resources as resources # type: ignore
 
-def find_playbook(name: str) -> str:
+def find_playbook(name: str) -> typing.Union[str,None]:
   cwd = Path(os.getcwd()).resolve()
   scriptdir = Path(sys.argv[0]).resolve().parent
   moddir = Path(__file__).resolve().parent.parent
@@ -24,10 +24,14 @@ def find_playbook(name: str) -> str:
     if os.path.isfile(dir / name):
       return str(dir / name)
 
+  return None
+
 def playbook(name: str, args: typing.List[str]) -> None:
   pbname = find_playbook(name)
   if not pbname:
     common.fatal("Cannot find Ansible playbook %s, aborting" % name)
+    return
+
   if common.VERBOSE:
     print("Running Ansible playbook %s" % pbname)
 
