@@ -1,9 +1,31 @@
-netlab commands
+Usage:
+
+    netlab <command> <parameters>
+
+Topology manipulation commands
 ==============================
 
-create        Create virtualization provider and network automation configuration
-              file. Assuming you're using Vagrant and Ansible, it creates
-              Vagrantfile, hosts.yml and ansible.cfg
+create      Create virtualization provider and network automation configuration
+            file. Assuming you're using Vagrant and Ansible, it creates
+            Vagrantfile, hosts.yml and ansible.cfg
 
-config        Runs initial-config Ansible playbook to deploy initial- and module-
-              specific configurations to network devices
+transform   Read network topology data, transform the topology data into device-
+            and link data models, and output the results
+
+read        Read network topology data and output the results
+            (used mostly for troubleshooting)
+
+
+Device configuration commands
+=============================
+
+initial     Runs initial-config Ansible playbook to deploy initial- and module-
+            specific configurations to network devices
+
+config      Use a custom configuration template to configure network devices
+
+collect     Collect device configurations from network devices and save them in
+            specified directory
+
+Notes:
+* Device configuration commands require Ansible version 2.9 or higher

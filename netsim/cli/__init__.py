@@ -30,10 +30,17 @@ def topology_parse_args() -> argparse.ArgumentParser:
 def lab_commands() -> None:
   if len(sys.argv) < 2:
     usage.run([])
+    sys.exit()
 
   cmd = sys.argv[1]
-  mod = importlib.import_module("."+cmd,__name__)
-  if not mod or not hasattr(mod,'run'):
-    print("Invalid CLI command: %s. Use 'help' to get the list of valid commands")
-    sys.exit(1)
-  mod.run(sys.argv[2:])   # type: ignore
+  try:
+    mod = importlib.import_module("."+cmd,__name__)
+  except:
+    mod = None
+
+  if mod and hasattr(mod,'run'):
+    mod.run(sys.argv[2:])   # type: ignore
+    return
+
+  print("Invalid CLI command: %s\n\nUse 'netlab usage' to get the list of valid commands" % cmd)
+  sys.exit(1)
