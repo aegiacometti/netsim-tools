@@ -33,10 +33,11 @@ def lab_commands() -> None:
     sys.exit()
 
   cmd = sys.argv[1]
+  mod = None
   try:
     mod = importlib.import_module("."+cmd,__name__)
   except:
-    mod = None
+    pass
 
   if mod and hasattr(mod,'run'):
     mod.run(sys.argv[2:])   # type: ignore
