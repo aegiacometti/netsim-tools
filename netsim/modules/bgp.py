@@ -95,7 +95,13 @@ class BGP(_Module):
           common.IncorrectValue)
         continue
 
-      for n in data.get('members',{}):
+      if not 'members' in data:
+        common.error(
+          "BGP as_list for ASN %s does not have a member attribute" % asn,
+          common.IncorrectValue)
+        continue
+
+      for n in data.members:
         if not n in topology.nodes_map:
           common.error(
             "Invalid node name %s in member list of BGP AS %s" % (n,asn),
