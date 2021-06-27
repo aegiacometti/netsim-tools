@@ -20,7 +20,10 @@ Device configuration commands
 =============================
 
 initial     Runs initial-config Ansible playbook to deploy initial- and module-
-            specific configurations to network devices
+            specific configurations to network devices, or to create a directory
+            with initial device configurations
+
+connect     Connect to network devices using SSH or 'docker exec'
 
 config      Use a custom configuration template to configure network devices
 

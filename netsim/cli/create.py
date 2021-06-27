@@ -21,7 +21,11 @@ def create_topology_parse(args: typing.List[str]) -> argparse.Namespace:
     prog="netlab create",
     description='Create provider- and automation configuration files')
 
-  parser.add_argument(dest='topology', action='store', help='Topology file')
+  parser.add_argument(
+    dest='topology', action='store', nargs='?',
+    type=argparse.FileType('r'),
+    default='topology.yml',
+    help='Topology file')
   parser.add_argument('-i','--inventory',dest='inventory', action='store', help='Automation inventory file')
   parser.add_argument('-c','--config',dest='config', action='store', help='Automation configuration file')
   parser.add_argument('-g',dest='vagrantfile', action='store',help='Virtualization provider configuration file name')
@@ -33,7 +37,7 @@ def create_topology_parse(args: typing.List[str]) -> argparse.Namespace:
 def run(cli_args: typing.List[str]) -> None:
   args = create_topology_parse(cli_args)
   set_logging_flags(args)
-  topology = read_topology.load(args.topology,args.defaults,"package:topology-defaults.yml")
+  topology = read_topology.load(args.topology.name,args.defaults,"package:topology-defaults.yml")
   common.exit_on_error()
 
   augment.main.transform(topology)
