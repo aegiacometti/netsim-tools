@@ -5,6 +5,7 @@
 #
 import typing
 import os
+import sys
 import argparse
 import subprocess
 
@@ -34,7 +35,15 @@ def get_inventory_data(host: str) -> typing.Optional[dict]:
   return ansible.inventory(host)
 
 def docker_connect(data: Box, rest: typing.List[str], verbose: bool = False) -> None:
-  return
+  host = data.ansible_host or data.host
+  args = ['docker','exec','-it',host,'bash','-il']
+  if rest:
+    sys.stderr.write("Connecting to container %s, executing %s\n" % (host," ".join(rest)))
+    args.extend(['-c','"'+' '.join(rest)+'"'])
+  else:
+    sys.stderr.write("Connecting to container %s, starting bash\n" % host)
+  sys.stderr.flush()
+  subprocess.run(args)
 
 def ssh_connect(data: Box, rest: typing.List[str], verbose: bool = False) -> None:
   host = data.ansible_host or data.host
@@ -47,12 +56,16 @@ def ssh_connect(data: Box, rest: typing.List[str], verbose: bool = False) -> Non
     args.extend(['-p',str(data.ansible_port)])
 
   if data.ansible_user:
-    host = data.ansible_user+"@"+host
+    args.extend([data.ansible_user+"@"+host])
+  else:
+    args.extend([host])
 
-  args.extend([host])
   args.extend(rest)
   if verbose:
     print("Executing: %s" % args)
+  else:
+    sys.stderr.write("Connecting to %s using SSH port %s\n" % (host,data.ansible_port or 22))
+    sys.stderr.flush()
 
   subprocess.run(args)
 
@@ -65,7 +78,7 @@ def run(cli_args: typing.List[str]) -> None:
 
   if connection == 'docker':
     docker_connect(host_data,rest,args.verbose or args.logging)
-  elif connection == 'paramiko' or connection == 'ssh' or not connection:
+  elif connection in ['paramiko','ssh','network_cli'] or not connection:
     ssh_connect(host_data,rest,args.verbose or args.logging)
   else:
     common.fatal('Unknown connection method %s for host %s' % (connection,args.host),'connect')
