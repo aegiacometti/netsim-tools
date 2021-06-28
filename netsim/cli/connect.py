@@ -1,0 +1,71 @@
+#
+# netlab connect command
+#
+# Connect to a lab device using SSH or Docker
+#
+import typing
+import os
+import argparse
+import subprocess
+
+from box import Box
+
+from . import ansible
+from . import common_parse_args
+from .. import common
+
+#
+# CLI parser for 'netlab initial' command
+#
+def connect_parse(args: typing.List[str]) -> typing.Tuple[argparse.Namespace, typing.List[str]]:
+  parser = argparse.ArgumentParser(
+    parents=[ common_parse_args() ],
+    prog="netlab connect",
+    description='Connect to a network device',
+    epilog='The rest of the arguments are passed to SSH or docker exec command')
+
+  parser.add_argument(
+    dest='host', action='store',
+    help='Device to connect to')
+
+  return parser.parse_known_args(args)
+
+def get_inventory_data(host: str) -> typing.Optional[dict]:
+  return ansible.inventory(host)
+
+def docker_connect(data: Box, rest: typing.List[str], verbose: bool = False) -> None:
+  return
+
+def ssh_connect(data: Box, rest: typing.List[str], verbose: bool = False) -> None:
+  host = data.ansible_host or data.host
+  args = ['ssh','-o','UserKnownHostsFile=/dev/null','-o','StrictHostKeyChecking=no','-o','LogLevel ERROR']
+
+  if data.ansible_ssh_pass:
+    args = ['sshpass','-p',data.ansible_ssh_pass ] + args
+
+  if data.ansible_port:
+    args.extend(['-p',str(data.ansible_port)])
+
+  if data.ansible_user:
+    host = data.ansible_user+"@"+host
+
+  args.extend([host])
+  args.extend(rest)
+  if verbose:
+    print("Executing: %s" % args)
+
+  subprocess.run(args)
+
+def run(cli_args: typing.List[str]) -> None:
+  (args,rest) = connect_parse(cli_args)
+
+  host_data = Box(get_inventory_data(args.host),box_dots=True,default_box=True)
+  host_data.host = args.host
+  connection = host_data.ansible_connection
+
+  if connection == 'docker':
+    docker_connect(host_data,rest,args.verbose or args.logging)
+  elif connection == 'paramiko' or connection == 'ssh' or not connection:
+    ssh_connect(host_data,rest,args.verbose or args.logging)
+  else:
+    common.fatal('Unknown connection method %s for host %s' % (connection,args.host),'connect')
