@@ -17,7 +17,7 @@ def common_parse_args() -> argparse.ArgumentParser:
                   help='Enable basic logging')
   parser.add_argument('-q','--quiet', dest='quiet', action='store_true',
                   help='Report only major errors')
-  parser.add_argument('-v','--view', dest='verbose', action='store_true',
+  parser.add_argument('-v','--verbose', dest='verbose', action='store_true',
                   help='Verbose logging')
   return parser
 
@@ -34,6 +34,8 @@ def lab_commands() -> None:
 
   cmd = sys.argv[1]
   mod = None
+  mod = importlib.import_module("."+cmd,__name__)
+
   try:
     mod = importlib.import_module("."+cmd,__name__)
   except:
