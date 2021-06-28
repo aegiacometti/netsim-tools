@@ -14,7 +14,7 @@ from .. import set_logging_flags
 #
 # CLI parser for 'netlab initial' command
 #
-def initial_config_parse(args: typing.List[str]) -> argparse.Namespace:
+def initial_config_parse(args: typing.List[str]) -> typing.Tuple[argparse.Namespace, typing.List[str]]:
   parser = argparse.ArgumentParser(
     parents=[ common_parse_args() ],
     prog="netlab initial",
