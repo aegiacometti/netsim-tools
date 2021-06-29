@@ -27,22 +27,47 @@ def topology_parse_args() -> argparse.ArgumentParser:
   parser.add_argument('-p','--provider', dest='provider', action='store',help='Override virtualization provider')
   return parser
 
+#
+# Main command dispatcher
+#
+# The command to execute is the first CLI argument. We try to load a module with the same name
+# and if the module load fails for whatever reason we generate an error and exit.
+#
+# However, the module load could fail due to coding errors within the module (not because the module
+# does not exist), in which case the 'debug' command becomes useful - it loads the required module
+# without the exception handling, resulting in a nice error printout.
+#
+# After we have the module that we hope will execute the desired command, we check whether it has
+# a 'run' function, and if it does, we call it with the remaining arguments.
+#
+
+quick_commands = {
+  'alias': lambda x: usage.print_usage('alias.txt')
+}
+
 def lab_commands() -> None:
   if len(sys.argv) < 2:
     usage.run([])
     sys.exit()
 
-  cmd = sys.argv[1]
+  arg_start = 2
   mod = None
-  mod = importlib.import_module("."+cmd,__name__)
+  cmd = sys.argv[1]
 
-  try:
-    mod = importlib.import_module("."+cmd,__name__)
-  except:
-    pass
+  if cmd == 'debug':
+    arg_start = 3
+    mod = importlib.import_module("."+sys.argv[2],__name__)
+  elif quick_commands.get(cmd,None):
+    quick_commands[cmd](sys.argv[arg_start:])
+    return
+  else:
+    try:
+      mod = importlib.import_module("."+cmd,__name__)
+    except:
+      pass
 
   if mod and hasattr(mod,'run'):
-    mod.run(sys.argv[2:])   # type: ignore
+    mod.run(sys.argv[arg_start:])   # type: ignore
     return
 
   print("Invalid CLI command: %s\n\nUse 'netlab usage' to get the list of valid commands" % cmd)

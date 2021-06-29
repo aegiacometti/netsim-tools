@@ -32,3 +32,8 @@ collect     Collect device configurations from network devices and save them in
 
 Notes:
 * Device configuration commands require Ansible version 2.9 or higher
+
+Convenience commands
+====================
+
+alias       Create aliases for old netsim-tools CLI commands
