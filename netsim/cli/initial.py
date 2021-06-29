@@ -52,7 +52,7 @@ def run(cli_args: typing.List[str]) -> None:
   if args.output:
     rest = ['-e','config='+os.path.abspath(args.output) ]
 
-  if args.logging:
+  if args.logging or args.verbose:
     print("Ansible playbook args: %s" % rest)
 
   if args.output:
