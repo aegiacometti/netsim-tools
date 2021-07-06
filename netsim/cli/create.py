@@ -25,9 +25,13 @@ def create_topology_parse(args: typing.List[str]) -> argparse.Namespace:
     dest='topology', action='store', nargs='?',
     type=argparse.FileType('r'),
     default='topology.yml',
-    help='Topology file')
-  parser.add_argument('-i','--inventory',dest='inventory', action='store', help='Automation inventory file')
-  parser.add_argument('-c','--config',dest='config', action='store', help='Automation configuration file')
+    help='Topology file (default: topology.yml)')
+  parser.add_argument(
+    '-i','--inventory',
+    dest='inventory',
+    action='store',
+    help='Automation inventory file name (default: hosts.yml)')
+  parser.add_argument('-c','--config',dest='config', action='store', help='Automation configuration file (default: ansible.cfg)')
   parser.add_argument('-g',dest='vagrantfile', action='store',help='Virtualization provider configuration file name')
   parser.add_argument('--hostvars', dest='hostvars', action='store', default='dirs',
                   choices=['min','files','dirs'],

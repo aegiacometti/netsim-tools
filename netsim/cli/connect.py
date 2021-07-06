@@ -20,11 +20,14 @@ from .. import common
 #
 def connect_parse(args: typing.List[str]) -> typing.Tuple[argparse.Namespace, typing.List[str]]:
   parser = argparse.ArgumentParser(
-    parents=[ common_parse_args() ],
     prog="netlab connect",
     description='Connect to a network device',
     epilog='The rest of the arguments are passed to SSH or docker exec command')
-
+  parser.add_argument(
+    '-v','--verbose',
+    dest='verbose',
+    action='store_true',
+    help='Verbose logging')
   parser.add_argument(
     dest='host', action='store',
     help='Device to connect to')
@@ -77,8 +80,8 @@ def run(cli_args: typing.List[str]) -> None:
   connection = host_data.ansible_connection
 
   if connection == 'docker':
-    docker_connect(host_data,rest,args.verbose or args.logging)
+    docker_connect(host_data,rest,args.verbose)
   elif connection in ['paramiko','ssh','network_cli'] or not connection:
-    ssh_connect(host_data,rest,args.verbose or args.logging)
+    ssh_connect(host_data,rest,args.verbose)
   else:
     common.fatal('Unknown connection method %s for host %s' % (connection,args.host),'connect')

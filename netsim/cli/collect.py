@@ -16,15 +16,22 @@ from .. import set_logging_flags
 #
 def initial_config_parse(args: typing.List[str]) -> typing.Tuple[argparse.Namespace, typing.List[str]]:
   parser = argparse.ArgumentParser(
-    parents=[ common_parse_args() ],
     prog="netlab collect",
     description='Collect device configurations',
     epilog='All other arguments are passed directly to ansible-playbook')
 
   parser.add_argument(
+    '-v','--verbose',
+    dest='verbose',
+    action='store_true',
+    help='Verbose logging')
+  parser.add_argument(
     '-o','--output',
-    dest='output', action='store',nargs='?',default='config',
-    help='Output directory')
+    dest='output',
+    action='store',
+    nargs='?',
+    default='config',
+    help='Output directory (default: config)')
   return parser.parse_known_args(args)
 
 def run(cli_args: typing.List[str]) -> None:
@@ -35,7 +42,7 @@ def run(cli_args: typing.List[str]) -> None:
 
   rest = ['-e','target='+args.output ] + rest
 
-  if args.logging:
+  if args.verbose:
     print("Ansible playbook args: %s" % rest)
 
   ansible.playbook('collect-configs.ansible',rest)

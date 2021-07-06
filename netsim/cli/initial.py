@@ -7,7 +7,7 @@ import typing
 import os
 import argparse
 
-from . import common_parse_args, topology_parse_args
+from . import common_parse_args
 from . import ansible
 from .. import set_logging_flags
 
@@ -28,11 +28,11 @@ def initial_config_parse(args: typing.List[str]) -> typing.Tuple[argparse.Namesp
   parser.add_argument(
     '-m','--module',
     dest='module', action='store',nargs='?',const='*',
-    help='Deploy module-specific configuration (optionally including a list of modules separated by commas')
+    help='Deploy module-specific configuration (optionally including a list of modules separated by commas)')
   parser.add_argument(
     '-o','--output',
     dest='output', action='store',nargs='?',const='config',
-    help='Create a directory with initial configurations instead of deploying them')
+    help='Create a directory with initial configurations instead of deploying them (default output directory: config)')
   return parser.parse_known_args(args)
 
 def run(cli_args: typing.List[str]) -> None:
