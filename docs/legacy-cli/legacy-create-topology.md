@@ -1,4 +1,4 @@
-# Create Lab Configuration Files
+# (Legacy) Create Lab Configuration Files
 
 The **create-topology** script reads:
 

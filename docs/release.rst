@@ -1,6 +1,12 @@
 Release notes
 =============
 
+2021-07-xx (release 0.8)
+  * Python package
+  * Unified CLI
+
+  :doc:`More details <release/0.8>`
+
 2021-05-31 (release 0.7)
   * EIGRP configuration module
   * BGP parameters: advertise_loopback, originate prefixes, community propagation
@@ -65,14 +71,10 @@ Release notes
    :caption: Individual release notes
    :maxdepth: 2
 
+   release/0.8.md
    release/0.7.md
    release/0.6.md
    release/0.5.md
    release/0.4.md
    release/0.3.md
-
-Future plans
-------------
-Release 0.7
-
-  * Add Cumulus VX support
+..
