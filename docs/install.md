@@ -25,8 +25,10 @@ If you'd like to use *netsim-tools* with *libvirt*[^1], and would like to create
 If you want to install *netsim-tools* and all its dependencies on an existing Ubuntu server (bare-metal or VM):
 
 * If needed, install **pip** with `sudo apt-get update && sudo apt-get install -y python3-pip`
-* Install *netsim-tools* package with `sudo python3 -m pip install netsim-tools`
+* Install *netsim-tools* package[^1] with `sudo python3 -m pip install netsim-tools`
 * Install additional software with `netlab install ubuntu ansible libvirt` command ([more details](netlab/install.md))
+
+[^1] Yes, I know one should install Python packages into a virtual environment, but hopefully we're either talking about a throwaway VM, or you know what you're doing.
 
 ## Building the Lab Environment
 
