@@ -1,39 +1,43 @@
-# Deploying Device Configurations
+# Deploying Custom Device Configurations
 
-**initial-config.ansible** is an Ansible playbook that can be used to deploy initial device configurations created from included configuration templates and expanded inventory data created with **create-topology** script.
+**netlab config** uses an internal Ansible playbook (`netsim/ansible/config.ansible`) to deploy custom device configurations generated from the supplied Jinja2 template(s) to lab devices.
 
-The playbook deploys device configurations in two steps:
+## Usage
 
-* Initial device configurations (**initial** tag)
-* Module-specific device configurations (**module** tag)
+```text
+usage: netlab config [-h] [-v] template
 
-When run without the **--tags** parameter, the playbook deploys all relevant configurations.
+Deploy custom configuration template
 
-When run with **-v** parameter, the playbook displays device configurations before deploying them. You could use **-v --tags test** parameters to display device configurations without deploying them.
+positional arguments:
+  template       Configuration template (or a family of templates)
 
-## Initial Device Configurations
+optional arguments:
+  -h, --help     show this help message and exit
+  -v, --verbose  Verbose logging
 
-Initial device configurations are created from inventory data and templates in **templates/initial** directory. Device-specific configuration template is selected using **ansible_network_os** value (making IOSv and CSR 1000v templates identical).
-
-As of [release 0.4](release/0.4.md), the following parameters are supported:
-
-* hostname
-* interface IPv4 and IPv6 addresses
-* unnumbered interfaces
-* interface descriptions
-* interface MAC addresses
-* interface bandwidth (when supported by the device)
-
-The initial configuration also includes LLDP running on all interfaces apart from the management interface (not configurable).
-
-Default passwords and other default configuration parameters are supposed to be provided by the Vagrant boxes.
-
-## Module Configurations
-
-Module-specific device configurations are created from templates in **templates/_module_** directory. Device-specific configuration template is selected using **ansible_network_os** value. See the [module descriptions](module-reference.md) for list of supported parameters.
-
-This part of the configuration deployment could be limited with **modlist** external variable -- a subset of configuration modules to be deployed. For example, to configure just OSPF (in a network running OSPF and BGP) on R1, use:
-
+All other arguments are passed directly to ansible-playbook
 ```
-$ initial-config.ansible -l r1 -e modlist=[ospf]
-```
+
+## Selecting Configuration Template
+
+**netlab config** uses these steps trying to find the configuration template for individual lab devices:
+
+* Combine template name with `ansible_network_os` and `.j2` suffix
+* Use template name as specified
+* Add `.j2` suffix to the template name.
+
+The first step allows you to create a set of templates to deploy the same functionality to lab devices running different network operating systems. The last step allows you to specify just the template name without the `.j2` suffix.
+
+## Limiting the Scope of Configuration Deployments
+
+All unrecognized parameters are passed to internal `config.ansible` Ansible playbook. You can use **ansible-playbook** CLI parameters to modify the configuration deployment, for example:
+
+* `-l` parameter to deploy device configurations on a subset of devices.
+* `-C` parameter to run the Ansible playbook in dry-run mode.
+
+## Debugging Device Configurations
+
+To display device configurations from within the Ansible playbook without deploying them, use `-v --tags test` parameters after the template name. 
+
+The `-v` flag will trigger debugging printout, and the bogus `test` flag will skip the actual configuration deployment.

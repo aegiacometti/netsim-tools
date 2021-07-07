@@ -20,7 +20,7 @@ After reading the network topology, **netlab create** performs a complex data tr
 
 ## Usage
 
-```
+```text
 usage: netlab create [-h] [--log] [-q] [-v]
   [--defaults DEFAULTS]
   [-d DEVICE] [-p PROVIDER]

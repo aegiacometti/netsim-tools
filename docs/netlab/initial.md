@@ -69,7 +69,7 @@ All unrecognized parameters are passed to internal `initial-config.ansible` Ansi
 * `-l` parameter to deploy device configurations on a subset of devices.
 * `-C` parameter to run the Ansible playbook in dry-run mode. Combine it with `-v` parameter to see the configuration changes that would be deployed[^3]
 
-[^3]: This trick does not work on Cumulus VX.
+[^3]: The Ansible playbook uses **vtysh** on Cumulus VX to deploy the FRR-related configuration changes from a file. The dry run will not display the configuration changes.
 
 ## Debugging Initial Configurations
 
