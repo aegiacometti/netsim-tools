@@ -36,4 +36,6 @@ Notes:
 Convenience commands
 ====================
 
+install     Runs installation scripts to install nice-to-have Ubuntu software,
+            Ansible and vagrant/libvirt
 alias       Create aliases for old netsim-tools CLI commands

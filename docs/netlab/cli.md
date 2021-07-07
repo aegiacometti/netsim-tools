@@ -13,8 +13,9 @@ The **netlab** command is the CLI interface to *netsim-tools* functionality, inc
 * **[netlab connect](connect.md)** relies on Ansible inventory created with **netlab create** to find IP address, username, and password of specified lab device, and uses SSH or **docker exec** to connect to the lab device.
 * **[netlab collect](collect.md)** uses Ansible device facts (or equivalent functionality implemented with Ansible modules) to collect device configurations and store them into specified directory.
 
-## Migration Commands
+## Utility Commands
 
+* **[netlab install](install.md)** installs additional Ubuntu software, Ansible, and libvirt/vagrant.
 * **[netlab alias](alias.md)** creates Bash aliases for old (release 0.7) CLI commands.
 
 ## Individual netlab Commands
@@ -30,4 +31,5 @@ The **netlab** command is the CLI interface to *netsim-tools* functionality, inc
    netlab connect <connect.md>
    netlab create <create.md>
    netlab initial <initial.md>
+   netlab install <install.md>
 ```

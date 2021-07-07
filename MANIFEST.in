@@ -1,5 +1,6 @@
 recursive-include netsim/ansible *
 recursive-include netsim/templates *
+recursive-include netsim/install *
 include requirements.txt
 include netsim/cli/usage.txt
 include netsim/cli/alias.txt
