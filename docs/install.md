@@ -24,7 +24,7 @@ If you'd like to use *netsim-tools* with *libvirt*[^1], and would like to create
 
 If you want to install *netsim-tools* and all its dependencies on an existing Ubuntu server (bare-metal or VM):
 
-* If needed, install **pip** with `apt-get install python`
+* If needed, install **pip** with `sudo apt-get install python3-pip`
 * Install *netsim-tools* package with `python3 -m pip install netsim-tools`
 * Install additional software with `netlab install ubuntu ansible libvirt` command ([more details](netlab/install.md))
 
