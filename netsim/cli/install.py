@@ -10,8 +10,6 @@ import glob
 import subprocess
 from pathlib import Path
 
-from . import common_parse_args
-from . import ansible
 from .. import common
 
 #
