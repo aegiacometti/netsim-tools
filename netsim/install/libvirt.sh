@@ -28,11 +28,11 @@ sudo apt-get $FLAG_QUIET update
 echo
 echo "Install common libraries and support software"
 sudo apt-get install -y $FLAG_QUIET libxslt-dev libxml2-dev zlib1g-dev
-sudo apt-get install -y $FLAG_QUIET ebtables dnsmasq-base sshpass tree jq
+sudo apt-get install -y $FLAG_QUIET ebtables dnsmasq-base sshpass tree jq bridge-utils
 echo ".. common libraries installed"
 echo
 echo "Install libvirt packages"
-sudo apt-get install -y $FLAG_QUIET libvirt-dev qemu qemu-kvm virtinst 
+sudo apt-get install -y $FLAG_QUIET libvirt-dev qemu qemu-kvm virtinst
 sudo apt-get install -y $FLAG_QUIET libvirt-daemon-system libvirt-clients
 echo ".. libvirt packages installed"
 echo
