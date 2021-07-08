@@ -10,7 +10,7 @@
 
 ## Container Images
 
-Lab topology file created by **create-topology** script uses these container images:
+Lab topology file created by **netlab create** command uses these container images:
 
 | Virtual network device | Container image      |
 |------------------------|----------------------|
