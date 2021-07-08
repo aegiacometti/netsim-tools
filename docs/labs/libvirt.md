@@ -30,13 +30,13 @@ For more details, read *[A Quick Introduction to Netsim-Tools](https://blog.kirc
 
 ## Creating *vagrant-libvirt* Virtual Network
 
-Vagrant *libvirt* provider connects management interfaces of managed VMs to *vagrant-libvirt* virtual network. Vagrant can figure out the device IP address based on dynamic DHCP mappings; **netsim-tools** can't. To make the Ansible inventory created by **create-topology** tool work, your virtual network MUST include static DHCP bindings that map MAC addresses used by **create-topology** into expected IP addresses.
+Vagrant *libvirt* provider connects management interfaces of managed VMs to *vagrant-libvirt* virtual network. Vagrant can figure out the device IP address based on dynamic DHCP mappings; *netsim-tools* can't. To make the Ansible inventory created by **[netlab create](../netlab/create.md)** tool work, your virtual network MUST include static DHCP bindings that map management MAC addresses defined in *netsim-tools* data model into expected IP addresses.
 
 ```{tip}
 The _vagrant-libvirt_ virtual network is created as part of `netlab install libvirt` installation script.
 ```
 
-The static DHCP bindings must map MAC addresses `08:4F:A9:00:00:xx` into IP addresses `192.168.121.1xx`. The easiest way to create the virtual network and static DHCP mappings is to use the `netsim/templates/provider/libvirt/vagrant-libvirt.xml` file supplied with **netsim-tools**:
+The static DHCP bindings must map MAC addresses `08:4F:A9:00:00:xx` into IP addresses `192.168.121.1xx`. The easiest way to create the virtual network and static DHCP mappings is to use the `netsim/templates/provider/libvirt/vagrant-libvirt.xml` file supplied with *netsim-tools*:
 
 * If needed, delete the existing *vagrant-libvirt* network with **virsh net-destroy vagrant-libvirt** and **virsh net-undefine vagrant-libvirt**
 * Create the management network with **virsh net-create _path_/vagrant-libvirt.xml**
@@ -65,6 +65,8 @@ You could also use **virsh net-edit _vagrant-libvirt_** to edit the XML definiti
 For more details, see [Using Libvirt Provider with Vagrant](https://codingpackets.com/blog/using-the-libvirt-provider-with-vagrant/) by [Brad Searle](https://www.linkedin.com/in/bradleysearle/). 
 
 ## Testing the Installation
+
+The easiest way to test your installation is to use **[netlab test](../netlab/test.md)** command. If you prefer to do step-by-step tests, you might find this recipe useful:
 
 * Create an empty directory and `topology.yml` file with the following contents within that directory:
 
