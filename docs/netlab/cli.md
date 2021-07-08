@@ -16,6 +16,7 @@ The **netlab** command is the CLI interface to *netsim-tools* functionality, inc
 ## Utility Commands
 
 * **[netlab install](install.md)** installs additional Ubuntu software, Ansible, and libvirt/vagrant.
+* **[netlab test](test.md)** tests virtual lab installation
 * **[netlab alias](alias.md)** creates Bash aliases for old (release 0.7) CLI commands.
 
 ## Individual netlab Commands
@@ -32,4 +33,5 @@ The **netlab** command is the CLI interface to *netsim-tools* functionality, inc
    netlab create <create.md>
    netlab initial <initial.md>
    netlab install <install.md>
+   netlab test <test.md>
 ```
