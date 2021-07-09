@@ -1,9 +1,10 @@
 Release notes
 =============
 
-2021-07-xx (release 0.8)
+2021-07-09 (release 0.8)
   * Python package
   * Unified CLI
+  * Installation and testing scripts
 
   :doc:`More details <release/0.8>`
 
