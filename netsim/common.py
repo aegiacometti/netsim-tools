@@ -5,6 +5,7 @@ import sys
 import typing
 import warnings
 from jinja2 import Environment, PackageLoader, StrictUndefined, make_logging_undefined
+from box import Box
 
 LOGGING=False
 VERBOSE=False
@@ -64,3 +65,25 @@ def set_verbose() -> None:
 def print_verbose(t: typing.Any) -> None:
   if VERBOSE:
     print(t)
+
+def set_dots(b : dict,k_list : list,v : typing.Any) -> None:
+  if len(k_list) <= 1:
+    b[k_list[0]] = v
+    return
+  if not k_list[0] in b:
+    b[k_list[0]] = {}
+  set_dots(b[k_list[0]],k_list[1:],v)
+
+def unroll_dots(b : typing.Any) -> None:
+  if isinstance(b,dict):
+    for k in list(b.keys()):
+      unroll_dots(b[k])
+      if isinstance(k,str) and ('.' in k):
+        v = b[k]
+        del b[k]     # If you're using Box with box_dots parameter
+        set_dots(b,k.split('.'),v)
+  elif isinstance(b,list):
+    for v in b:
+      unroll_dots(v)
+  else:
+    return
