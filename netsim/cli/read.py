@@ -17,7 +17,7 @@ from ..augment.main import transform_setup
 #
 def read_topology_parse(args: typing.List[str]) -> argparse.Namespace:
   parser = argparse.ArgumentParser(
-    parents=[ common_parse_args() ],
+    parents=[ common_parse_args(),topology_parse_args() ],
     prog="netlab read",
     description='Read network topology, add default settings, and dump the results')
 
