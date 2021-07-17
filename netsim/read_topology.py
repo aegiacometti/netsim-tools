@@ -4,6 +4,7 @@
 import os
 import sys
 import typing
+import argparse
 
 from box import Box
 try:
@@ -79,3 +80,19 @@ def load(fname: str , defaults: Box, settings: str) ->Box:
     include_defaults(topology,settings)
 
   return topology
+
+def add_cli_args(topo: Box, args: argparse.Namespace) -> None:
+  if args.device:
+    topo.defaults.device = args.device
+
+  if args.provider:
+    topo.provider = args.provider
+
+  for s in args.settings:
+    if not "=" in s:
+      common.error("Invalid CLI setting %s, should be in format key=value" % s)
+    (k,v) = s.split("=")
+    if '.' in k:
+      common.set_dots(topo,k.split('.'),v)
+    else:
+      topo[k] = v
