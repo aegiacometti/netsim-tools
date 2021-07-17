@@ -1,6 +1,6 @@
 # Supported Platforms
 
-The following virtual network devices are supported by **config-generate**:
+The following virtual network devices are supported by *netsim-tools*:
 
 | Virtual network device | netsim device type |
 |------------------------|--------------------|
@@ -39,7 +39,7 @@ nodes: [ s1, s2, s3 ]
 
 ## Supported Virtualization Providers
 
-**config-generate** script can generate configuration files for these virtualization providers:
+**netlab create** can generate configuration files for these virtualization providers:
 
 * [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt), including support for *veryisolated* private networks (link type: **lan**) and P2P tunnels (link type: **p2p**).
 * [Vagrant VirtualBox provider](https://www.vagrantup.com/docs/providers/virtualbox)
@@ -54,11 +54,16 @@ You cannot use all supported network devices with all virtualization providers:
 | Cisco IOSv             | ✅ | ❌ | ❌ |
 | Cisco CRS 1000v        | ✅ | ❌ | ❌ |
 | Cisco Nexus 9300v      | ✅ | ✅ | ❌ |
-| Cumulus Linux          | ✅ | ✅ | ❌ |
+| Cumulus Linux          | ✅ | ✅ | ✅ |
 | FRR 7.5.0.             | ❌ | ❌ | ✅ |
 | Juniper vSRX 3.0       | ✅ | ❌ | ❌ |
 
-**Notes:**
+**Implementation Caveats**
+* *containerlab* could run Cumulus Linux as a container or as a micro-VM with *firecracker* (default). To run Cumulus VX as a pure container, add **runtime: docker** parameter to node data.
+* Release 0.8.1 uses Cumulus VX containers created by Michael Kashin and downloaded from his Docker Hub account. You could change the container name with **defaults.providers.clab.devices.cumulus.image.clab** parameter (or by editing the `topology-defaults.yml` file included with *netsim-tools*).
+
+**Notes on Extending Device- or Virtualization Provider Support**
+
 * It's possible to run Cisco IOSv/CSR or Juniper vSRX under Virtualbox if you build your own Vagrant boxes.
 * After building Vagrant boxes, edit **devices** section of **topology-defaults.yml** file to add Virtualbox support for individual network devices.
 * If you feel like building a downloadable Vagrant box for FRR, please send us the box name and we'll add it to **topology-defaults.yml** file.
