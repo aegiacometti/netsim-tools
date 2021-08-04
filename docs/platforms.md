@@ -12,7 +12,7 @@ The following virtual network devices are supported by *netsim-tools*:
 | Cumulus Linux          | cumulus            |
 | FRR 7.5.0              | frr                |
 | Juniper vSRX 3.0       | vsrx               |
-| Nokia SR Linux.        | srlinux            |
+| Nokia SR Linux         | srlinux            |
 
 **Notes:**
 * **netsim-tools** support FRR containers with **containerlab**. It seems that the FRR build tools changed the file system layout after release 7.5.0, crashing **containerlab** deployment process.
