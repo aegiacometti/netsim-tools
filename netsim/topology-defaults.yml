@@ -115,6 +115,9 @@ providers:
           ansible_connection: docker
           ansible_user: root
 
+      srlinux:
+        provider_kind: srl
+
 ports:
   ssh: 22
   http: 80
@@ -226,4 +229,15 @@ devices:
       ansible_user: vagrant
       ansible_ssh_pass: vagrant
       ansible_network_os: cumulus
+      ansible_connection: paramiko
+
+  srlinux:
+    mgmt_if: mgmt0
+    interface_name: e1-%d
+    image:
+      clab: ghcr.io/nokia/srlinux
+    group_vars:
+      ansible_user: admin
+      ansible_ssh_pass: admin
+      ansible_network_os: sros
       ansible_connection: paramiko
