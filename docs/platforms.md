@@ -12,6 +12,7 @@ The following virtual network devices are supported by *netsim-tools*:
 | Cumulus Linux          | cumulus            |
 | FRR 7.5.0              | frr                |
 | Juniper vSRX 3.0       | vsrx               |
+| Nokia SR Linux.        | srlinux            |
 
 **Notes:**
 * **netsim-tools** support FRR containers with **containerlab**. It seems that the FRR build tools changed the file system layout after release 7.5.0, crashing **containerlab** deployment process.
@@ -57,6 +58,7 @@ You cannot use all supported network devices with all virtualization providers:
 | Cumulus Linux          | ✅ | ✅ | ✅ |
 | FRR 7.5.0.             | ❌ | ❌ | ✅ |
 | Juniper vSRX 3.0       | ✅ | ❌ | ❌ |
+| Nokia SR Linux         | ❌ | ❌ | ✅ |
 
 **Implementation Caveats**
 * *containerlab* could run Cumulus Linux as a container or as a micro-VM with *firecracker* (default). To run Cumulus VX as a pure container, add **runtime: docker** parameter to node data.
@@ -81,6 +83,7 @@ Ansible playbooks included with **netsim-tools** can deploy and collect device c
 | Cumulus Linux          | ✅ | ✅ |
 | FRR container          | ✅ | ❌ |
 | Juniper vSRX 3.0       | ✅ | ✅ |
+| Nokia SR Linux         | ❌ | ❌ |
 
 ## Initial Device Configurations
 
@@ -95,6 +98,7 @@ The following system-wide features are configured on supported network operating
 | Cumulus Linux          | ✅ | ✅ | ✅ | ✅ | ✅ |
 | FRR 7.5.0              | ✅ | ❌ | ❌ | ✅ | ✅ |
 | Juniper vSRX 3.0       | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Nokia SR Linux         | ❌ | ❌ | ❌ | ❌ | ❌ |
 
 The following interface parameters are configured on supported network operating systems as part of initial device configuration:
 
@@ -122,6 +126,7 @@ Individual **netsim-tools** [configuration modules](module-reference.md) are sup
 | Cumulus Linux          | ✅ | ❌ | ❌ | ✅ |  ❌ |
 | FRR 7.5.0              | ✅ | ✅ | ❌ | ✅ | ❌ |
 | Juniper vSRX 3.0       | ✅ | ✅ | ❌ | ✅ | ❌ |
+| Nokia SR Linux         | ❌ | ❌ | ❌ | ❌ | ❌ |
 
 ## IPv6 Support
 
