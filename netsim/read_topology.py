@@ -88,11 +88,12 @@ def add_cli_args(topo: Box, args: argparse.Namespace) -> None:
   if args.provider:
     topo.provider = args.provider
 
-  for s in args.settings:
-    if not "=" in s:
-      common.error("Invalid CLI setting %s, should be in format key=value" % s)
-    (k,v) = s.split("=")
-    if '.' in k:
-      common.set_dots(topo,k.split('.'),v)
-    else:
-      topo[k] = v
+  if args.settings:
+    for s in args.settings:
+      if not "=" in s:
+        common.error("Invalid CLI setting %s, should be in format key=value" % s)
+      (k,v) = s.split("=")
+      if '.' in k:
+        common.set_dots(topo,k.split('.'),v)
+      else:
+        topo[k] = v
