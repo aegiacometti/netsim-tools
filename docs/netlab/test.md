@@ -5,7 +5,7 @@
 ## Usage
 
 ```text
-usage: netlab test [-h] [-w WORKDIR] [-v] {libvirt,virtualbox, clab}
+usage: netlab test [-h] [-w WORKDIR] [-v] {libvirt,virtualbox,clab}
 
 Test virtual lab installation
 

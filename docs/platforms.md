@@ -56,13 +56,13 @@ You cannot use all supported network devices with all virtualization providers:
 | Cisco CRS 1000v        | ✅ | ❌ | ❌ |
 | Cisco Nexus 9300v      | ✅ | ✅ | ❌ |
 | Cumulus Linux          | ✅ | ✅ | ✅ |
-| FRR 7.5.0.             | ❌ | ❌ | ✅ |
+| FRR 7.5.0              | ❌ | ❌ | ✅ |
 | Juniper vSRX 3.0       | ✅ | ❌ | ❌ |
 | Nokia SR Linux         | ❌ | ❌ | ✅ |
 
 **Implementation Caveats**
-* *containerlab* could run Cumulus Linux as a container or as a micro-VM with *firecracker* (default). To run Cumulus VX as a pure container, add **runtime: docker** parameter to node data.
-* Release 0.8.1 uses Cumulus VX containers created by Michael Kashin and downloaded from his Docker Hub account. You could change the container name with **defaults.providers.clab.devices.cumulus.image.clab** parameter (or by editing the `topology-defaults.yml` file included with *netsim-tools*).
+* *containerlab* could run Cumulus Linux as a container or as a micro-VM with *firecracker* (default, requires KVM). To run Cumulus VX as a pure container, add **runtime: docker** parameter to node data.
+* Release 0.8.1 uses Cumulus VX containers created by Michael Kashin and downloaded from his Docker Hub account. Once Nvidia releases an official container image, change the container name with **defaults.providers.clab.devices.cumulus.image.clab** parameter (or by editing the `topology-defaults.yml` file included with *netsim-tools*).
 
 **Notes on Extending Device- or Virtualization Provider Support**
 
