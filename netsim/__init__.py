@@ -9,7 +9,7 @@ from box import Box
 from . import common
 from . import read_topology
 from . import augment
-from . import inventory
+from .outputs import ansible
 from .providers import Provider
 
 import argparse
@@ -54,9 +54,9 @@ def main(args: argparse.Namespace) -> None:
 
   if args.inventory:
     if args.verbose:
-      inventory.dump(topology)
+      ansible.dump(topology)
     else:
-      inventory.write(topology,args.inventory,args.hostvars)
+      ansible.ansible_inventory(topology,args.inventory,args.hostvars)
 
   if args.config:
-    inventory.config(args.config,args.inventory)
+    ansible.ansible_config(args.config,args.inventory)

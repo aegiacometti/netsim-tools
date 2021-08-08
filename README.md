@@ -1,8 +1,10 @@
-<!--
+
 # Development Notes
 
-This is development branch for what might become release 0.8 or release 0.7.1 (depending on how many changes we'll accumulate in this release).
--->
+This is development branch for release 0.9. Target functionality:
+
+* Configurable **netlab create** output
+* Network diagrams in DOT format
 
 # Overview
 

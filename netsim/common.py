@@ -44,6 +44,12 @@ def exit_on_error() -> None:
   if err_count > 0:
     fatal('Cannot proceed beyond this point due to errors, exiting')
 
+def open_output_file(fname: str) -> typing.TextIO:
+  if fname == '-':
+    return sys.stdout
+
+  return open(fname,mode='w')
+
 def template(j2: str , data: typing.Dict, path: str) -> str:
   ENV = Environment(loader=PackageLoader('netsim',path), \
           trim_blocks=True,lstrip_blocks=True, \
