@@ -101,7 +101,7 @@ def graph_topology(topology: Box, fname: str, settings: Box) -> bool:
       if not l.bridge:
         common.error('Found a lan/stub link without a bridge name, skipping',common.IncorrectValue,'graph')
         next
-      network_with_label(f,l)
+      network_with_label(f,l,settings)
       for k in l.keys():
         if k in maps.nodes:
           edge_node_net(f,l,k,settings.interface_labels)
