@@ -42,7 +42,7 @@ def main(args: argparse.Namespace) -> None:
   if args.provider is not None:
     provider = Provider.load(topology.provider,topology.defaults.providers[topology.provider])
     if args.verbose:
-      provider.dump(topology)
+      common.error("Use 'netlab create -o provider=-' to write provider configuration file to stdout")
     else:
       provider.create(topology,args.provider)
 

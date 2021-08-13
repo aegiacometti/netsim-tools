@@ -157,8 +157,8 @@ class Graph(_TopologyOutput):
       if len(self.filenames) > 1:
         common.error('Extra output filename(s) ignored: %s' % str(self.filenames[1:]),common.IncorrectValue,'graph')
 
-    if hasattr(self,'format'):
-      output_format = self.format
+    if self.format:
+      output_format = self.format[0]
 
     if output_format in graph_dispatch:
       if graph_dispatch[output_format](topology,graphfile,self.settings):

@@ -18,7 +18,7 @@ class ProviderConfiguration(_TopologyOutput):
       if len(self.filenames) > 1:
         common.error('Extra output filename(s) ignored: %s' % str(self.filenames[1:]),common.IncorrectValue,'provider')
 
-    if hasattr(self,'format'):
-      common.error('Specified output format %s ignored' % self.format,common.IncorrectValue,'provider')
+    if self.format:
+      common.error('Specified output format(s) %s ignored' % self.format,common.IncorrectValue,'provider')
 
     provider.create(topology,filename)

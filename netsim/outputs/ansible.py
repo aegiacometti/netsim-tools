@@ -148,8 +148,8 @@ class AnsibleInventory(_TopologyOutput):
       if len(self.filenames) > 2:
         common.error('Extra output filename(s) ignored: %s' % str(self.filenames[2:]),common.IncorrectValue,'ansible')
 
-    if hasattr(self,'format'):
-      output_format = self.format
+    if self.format:
+      output_format = self.format[0]
 
     ansible_inventory(topology,hostfile,output_format)
     ansible_config(configfile,hostfile)

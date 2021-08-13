@@ -9,6 +9,7 @@ import platform
 import subprocess
 import os
 import typing
+import re
 
 # Related modules
 from box import Box
@@ -24,15 +25,14 @@ class _TopologyOutput(Callback):
 
     output_list = output_parts[0].split(':')
     self.output = output_list[0]
-    if len(output_list) > 1:
-      self.format = output_list[1]
+    self.format = output_list[1:]
 
     if len(output_parts) > 1:
       self.filenames = output_parts[1].split(',')
 
   @classmethod
   def load(self, output: str, data: Box) -> typing.Optional['_TopologyOutput']:
-    module_name = __name__+"."+output.split(':')[0]
+    module_name = __name__+"."+re.split(':|=',output)[0]
     obj = self.find_class(module_name)
     if obj:
       return obj(output,data)
@@ -40,7 +40,8 @@ class _TopologyOutput(Callback):
       return None
 
   def get_template_path(self) -> str:
-    return 'templates/outputs/' + self.output + "/" + (self.format or "default") + ".j2"
+    fmtname = self.format[0] if self.format else "default"
+    return 'templates/outputs/' + self.output + "/" + fmtname + ".j2"
 
   def get_output_name(self, fname: str, topology: Box) -> typing.Optional[str]:
     if fname:

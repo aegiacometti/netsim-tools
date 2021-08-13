@@ -24,7 +24,7 @@ class FatalError(Warning):
 class ErrorAbort(Exception):
   pass
 
-def fatal(text: str, module: str = 'topology') -> None:
+def fatal(text: str, module: str = 'netsim-tools') -> None:
   global err_count
   err_count = err_count + 1
   warnings.warn_explicit(text,FatalError,filename=module,lineno=err_count)
@@ -49,6 +49,10 @@ def open_output_file(fname: str) -> typing.TextIO:
     return sys.stdout
 
   return open(fname,mode='w')
+
+def close_output_file(f: typing.TextIO) -> None:
+  if f.name != '<stdout>':
+    f.close()
 
 def template(j2: str , data: typing.Dict, path: str) -> str:
   ENV = Environment(loader=PackageLoader('netsim',path), \

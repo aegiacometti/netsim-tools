@@ -62,17 +62,13 @@ class Provider(Callback):
         processor_name = str(subprocess.check_output("cat /proc/cpuinfo", shell=True).splitlines()[1].split()[2])
       topology.defaults.processor = processor_name
 
-  def dump(self, topology: Box) -> None:
-    template_path = self.get_template_path()
-    self.transform(topology)
-    print("\nVagrantfile using templates from %s" % os.path.relpath(template_path))
-    print("======================================================")
-    print(common.template(self.get_root_template(),topology,template_path))
-
   def create(self, topology: Box, fname: typing.Optional[str]) -> None:
     self.transform(topology)
     fname = self.get_output_name(fname,topology)
-    with open(fname,"w") as output:
-      output.write(common.template(self.get_root_template(),topology,self.get_template_path()))
-      output.close()
+    output = common.open_output_file(fname)
+    output.write(common.template(self.get_root_template(),topology,self.get_template_path()))
+    if fname != '-':
+      common.close_output_file(output)
       print("Created provider configuration file: %s" % fname)
+    else:
+      output.write("\n")
