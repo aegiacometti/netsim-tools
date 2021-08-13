@@ -29,7 +29,7 @@ class YAML(_TopologyOutput):
     for fmt in self.format:
       if fmt == 'nodefault':
         cleantopo.pop('defaults')
-      elif fmt == 'noaddressing':
+      elif fmt == 'noaddr':
         cleantopo.pop('addressing')
       elif fmt == 'nodes':
         cleantopo = cleantopo.nodes

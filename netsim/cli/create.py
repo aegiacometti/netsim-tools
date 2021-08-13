@@ -25,7 +25,8 @@ def create_topology_parse(args: typing.List[str]) -> argparse.Namespace:
     epilog=textwrap.dedent('''
       output files created when no output is specified:
 
-        * Virtualization provider file with provider-specific filename (Vagrantfile or clab.yml)
+        * Virtualization provider file with provider-specific filename
+          (Vagrantfile or clab.yml)
         * Ansible inventory file (hosts.yml) and configuration (ansible.cfg)
 
       For a complete list of output formats please consult the documentation
