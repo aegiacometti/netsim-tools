@@ -58,8 +58,8 @@ def load(fname: str , defaults: Box, settings: str) ->Box:
     common.fatal('Cannot read topology file: %s' % sys.exc_info()[0]) # pragma: no cover -- sanity check, getting here would be hard
   assert topology is not None
   topology.input = [ fname ]
-  topology.setdefault('defaults',{})
-  topology.setdefault('includes',[ 'defaults', 'global_defaults' ])
+  if not 'includes' in topology:
+    topology.includes = [ 'defaults', 'global_defaults' ]
   if not isinstance(topology.includes,list):
     common.error( \
       "Topology 'includes' element (if present) should be a list", \

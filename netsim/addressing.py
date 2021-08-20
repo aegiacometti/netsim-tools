@@ -98,7 +98,8 @@ def validate_pools(addrs: typing.Optional[Box] = None) -> None:
         category=common.MissingValue,module='addressing')
 
   if isinstance(addrs.mgmt,dict):
-    addrs.mgmt.setdefault('prefix',24)
+    if not 'prefix' in addrs.mgmt:
+      addrs.mgmt['prefix'] = 24
 
   for pool,pfx in addrs.items():
     for k in ('ipv4','ipv6'):

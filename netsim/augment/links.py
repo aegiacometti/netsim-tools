@@ -29,7 +29,9 @@ def adjust_link_list(links: typing.Optional[typing.List[typing.Any]]) -> typing.
   return link_list
 
 def add_node_interface(node: Box, ifdata: Box, defaults: Box) -> int:
-  node.setdefault('links',[])
+  if not 'links' in node:
+    node.links = []
+
   ifindex_offset = defaults.devices[node.device].get('ifindex_offset',1)
   ifindex = len(node.links) + ifindex_offset
 
