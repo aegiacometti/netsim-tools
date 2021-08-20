@@ -80,6 +80,7 @@ Release notes
    :caption: Individual release notes
    :maxdepth: 2
 
+   release/0.9.md
    release/0.8.md
    release/0.7.md
    release/0.6.md
