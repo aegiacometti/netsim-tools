@@ -1,6 +1,13 @@
 Release notes
 =============
 
+2021-08-20 (release 0.9)
+  * Topology graphs (physical topology and BGP sessions)
+  * YAML or JSON representation of transformed network topology
+  * Generic output framework
+
+  :doc:`More details <release/0.9>`
+
 2021-07-09 (release 0.8)
   * Python package
   * Unified CLI
