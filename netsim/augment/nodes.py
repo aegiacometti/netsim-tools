@@ -107,7 +107,7 @@ Main node transformation code
 * copy device data from defaults
 * set management IP and MAC addresses
 '''
-def transform(topology: Box, defaults: Box, pools: Box) -> typing.Dict:
+def transform(topology: Box, defaults: Box, pools: Box) -> dict:
   augment_node_provider_data(topology)
 
   id = 0
